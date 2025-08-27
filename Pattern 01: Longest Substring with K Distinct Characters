@@ -1,0 +1,27 @@
+import java.util.HashMap;
+public class longestSubstringWithKdistinct {
+    public static int longSubK(String str, int k){
+        int left=0;
+        int count=0;
+        HashMap<Character, Integer> subStr= new HashMap<>();
+        for(int right=0; right<str.length(); right++){
+            subStr.put(str.charAt(right),subStr.getOrDefault(str.charAt(right),0)+1);
+            System.out.println("left: "+left+", right: "+right+", char is: "+str.charAt(right)+", count of char is: "+subStr.get(str.charAt(right)));
+            while(subStr.size()>k){
+                subStr.put(str.charAt(left),subStr.get(str.charAt(left))-1);
+                if(subStr.get(str.charAt(left))==0){
+                    subStr.remove(str.charAt(left));
+                }
+                left++;
+            }
+            count=Math.max(count, right-left+1);
+        }
+        return count;
+    }
+    public static void main(String[] args) {
+        String myString ="abababakkhaba";
+        int k=3;
+        int y = longSubK(myString, k);
+        System.out.println(y);
+    }
+}
